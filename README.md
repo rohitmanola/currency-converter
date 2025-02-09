@@ -1,33 +1,36 @@
-# Currency Converter Application
 
-This is a simple Spring Boot application that converts one currency to another. It gets real-time exchange rates from an external API. You can use this application to get current rates and convert amounts between different currencies.
+---
 
-## Features
+# Currency Converter Service
 
-- Get the latest exchange rates for a base currency.
-- Convert an amount from one currency to another.
-- Clear error messages when something goes wrong.
-- Unit tests for basic functionality.
+This is a straightforward Spring Boot application designed to convert currencies. It retrieves up-to-date exchange rates from an external API. You can utilize this service to get current exchange rates and perform conversions between different currencies.
+
+## Key Features
+
+- Retrieve the most recent exchange rates for a specified base currency.
+- Convert amounts between different currencies.
+- Detailed error messages for any issues that arise.
+- Unit tests to ensure core functionalities work as expected.
 
 ## Prerequisites
 
-- Java 21 or higher.
+- Java version 21 or later.
 - Maven.
 
-## Getting Started
+## How to Set Up
 
 ### 1. Clone the Repository
 
-Open your terminal and run:
+To clone the repository, run the following commands in your terminal:
 
 ```
-git clone https://github.com/ramkousik/currency-converter.git
+git clone https://github.com/rohitmanola/currency-converter.git
 cd currency-converter
 ```
 
-### 2. Build the Application
+### 2. Build the Project
 
-To build the project, run:
+To compile the application, run:
 
 ```
 mvn clean install
@@ -35,17 +38,17 @@ mvn clean install
 
 ### 3. Run the Application
 
-To start the application, run:
+To launch the application, execute:
 
 ```
 mvn spring-boot:run
 ```
 
-The application will run at [http://localhost:8080](http://localhost:8080).
+The app will be available at [http://localhost:8080](http://localhost:8080).
 
-### 4. Running the Tests
+### 4. Execute the Tests
 
-To run the unit tests, use the command:
+To run the unit tests, use this command:
 
 ```
 mvn test
@@ -53,22 +56,22 @@ mvn test
 
 ## Configuration
 
-The external API URL is set in the `src/main/resources/application.properties` file. You can change it if needed. For example:
+The URL for the external API is defined in the `src/main/resources/application.properties` file. You can update the URL if necessary. Example:
 
 ```properties
 exchange.rate.api.url=https://v6.exchangerate-api.com/v6/db3e2c09392696b8c15af8e4/latest/{base}
 ```
 
-## API Documentation
+## API Reference
 
 ### 1. GET `/api/rates`
 
-**Overview:**  
-This endpoint gets the latest exchange rates for a given base currency. It calls an external API and returns a JSON response with update times, links to documentation, and a list of conversion rates.
+**Description:**  
+This endpoint fetches the latest exchange rates for a specified base currency. It makes a request to an external API and returns a JSON object that includes the update time, documentation links, and a set of conversion rates.
 
-**Query Parameter:**
+**Query Parameters:**
 
-- **base** (optional): This is the currency code you want to use as the base. Even if a default like `USD` might be used on the client side, you must send a valid currency code as required by the external API.
+- **base** (optional): The currency code to use as the base. Even if the client defaults to `USD`, you must specify a valid currency code according to the external API requirements.
 
 **Example Request:**
 
@@ -76,7 +79,7 @@ This endpoint gets the latest exchange rates for a given base currency. It calls
 GET http://localhost:8080/api/rates?base=USD
 ```
 
-**Example Successful Response:**
+**Example Response:**
 
 ```json
 {
@@ -107,10 +110,10 @@ GET http://localhost:8080/api/rates?base=USD
 
 **Error Handling:**
 - **503 Service Unavailable:**
-    - If you send an invalid base currency code, the external API returns an error. Our service wraps this error and sends a **503 Service Unavailable** response.
-    - If there is another problem, such as a network error, you will also get a **503 Service Unavailable** response.
+    - If you provide an invalid base currency, the external API will return an error. This service wraps that error and responds with **503 Service Unavailable**.
+    - Other issues, like network errors, will also result in a **503 Service Unavailable** response.
 
-  In these cases, the error message is plain text, for example:
+  In these cases, the error message will be in plain text, such as:
   ```
   External API error: unsupported-code
   ```
@@ -119,14 +122,14 @@ GET http://localhost:8080/api/rates?base=USD
 
 ### 2. POST `/api/convert`
 
-**Overview:**  
-This endpoint converts an amount from one currency to another. It uses the latest exchange rates from the external API to calculate the conversion.
+**Description:**  
+This endpoint performs currency conversion, taking an amount and converting it from one currency to another based on the current exchange rates.
 
 **Request Body:**  
-Send a JSON object with these fields:
-- **from:** The currency code you want to convert from.
-- **to:** The currency code you want to convert to.
-- **amount:** The number you want to convert.
+Send a JSON object with the following properties:
+- **from:** The source currency code.
+- **to:** The target currency code.
+- **amount:** The amount to convert.
 
 **Example Request:**
 
@@ -138,7 +141,7 @@ Send a JSON object with these fields:
 }
 ```
 
-**Example Successful Response:**
+**Example Response:**
 
 ```json
 {
@@ -149,14 +152,14 @@ Send a JSON object with these fields:
 }
 ```
 
-> **Note:** The value of `convertedAmount` depends on the current exchange rate from the external API.
+> **Note:** The `convertedAmount` value is determined by the current exchange rate provided by the external API.
 
 **Error Handling:**
 - **503 Service Unavailable:**
-    - If you send an invalid **from** (base) currency code, the external API returns an error. Our service wraps this error and sends a **503 Service Unavailable** response.
+    - If you use an invalid **from** (base) currency code, the external API will return an error. This service wraps it and responds with **503 Service Unavailable**.
 
 - **400 Bad Request:**
-    - If the **to** (target) currency code is not found in the `conversion_rates` map, our service throws an error and sends a **400 Bad Request** response with a message like:
+    - If the **to** (target) currency code is not found in the `conversion_rates` map, the service will throw an error and respond with **400 Bad Request**, including a message like:
 
       ```
       Invalid target currency code: XYZ
@@ -164,6 +167,9 @@ Send a JSON object with these fields:
 
 ---
 
-## Contact
+## Contact Information
 
-For any questions, please contact ramkousikallam@gmail.com.
+For further inquiries, please contact:  
+manolarohit24@gmail.com
+
+---
